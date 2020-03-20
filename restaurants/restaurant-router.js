@@ -12,7 +12,7 @@ const config = {
 router.get('/restaurant/:latitude/:longitude', async (req, res) => {
     const info = await req.params
 
-    axios.get(`https://api.yelp.com/v3/businesses/search?latitude=${info.latitude}&longitude=${info.longitude}`, config)
+    axios.get(`https://api.yelp.com/v3/businesses/search?latitude=${info.latitude}&longitude=${info.longitude}&categories=restaurants`, config)
         .then(response => {
             // console.log(response.data)
             res.status(200).json(response.data)
