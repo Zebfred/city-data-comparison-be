@@ -27,7 +27,21 @@ router.get('/events/:latitude/:longitude', async (req, res) => {
     const info = await req.params
     const time = Math.floor(Date.now() / 1000)
 
-    axios.get(`https://api.yelp.com/v3/events?latitude=${info.latitude}&longitude=${info.longitude}&limit=10&start_date=${time}`, config)
+    axios.get(`https://api.yelp.com/v3/events?latitude=${info.latitude}&longitude=${info.longitude}&limit=20&start_date=${time}`, config)
+        .then(response => {
+            // console.log(response.data)
+            res.status(200).json(response.data)
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).json(err)
+        })
+})
+
+router.get('/categories/:latitude/:longitude/:categorie', async (req, res) => {
+    const info = await req.params
+
+    axios.get(`https://api.yelp.com/v3/businesses/search?latitude=${info.latitude}&longitude=${info.longitude}&limit=20&categories=${info.categorie}`, config)
         .then(response => {
             // console.log(response.data)
             res.status(200).json(response.data)
